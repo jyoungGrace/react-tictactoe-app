@@ -49,13 +49,13 @@ const App = () => {
         //불변성을  지켜주기 위해서 새로운 expense 생성
         const newExpenses = [...expense, newExpense];
         setExpense(newExpenses);
-        setCharge("");
-        setAmount(0);
         handleAlert({
           type: "success",
           text: "아이템이 생성되었습니다.",
         });
       }
+      setCharge("");
+      setAmount(0);
     } else {
       console.log("error");
       handleAlert({
@@ -78,12 +78,17 @@ const App = () => {
   const [id, setId] = useState("");
   const [edit, setEdit] = useState(false);
   const handleEdit = (id) => {
-    const updateExpense = expense.find((item) => item.id == id);
+    const updateExpense = expense.find((item) => item.id === id);
     const { charge, amount } = updateExpense;
     setId(id);
     setCharge(charge);
     setAmount(amount);
     setEdit(true);
+  };
+
+  //목록 전체 삭제
+  const clearItems = () => {
+    setExpense([]);
   };
 
   return (
@@ -108,6 +113,7 @@ const App = () => {
           expense={expense}
           handleDelete={handleDelete}
           handleEdit={handleEdit}
+          clearItems={clearItems}
         />
       </div>
 
